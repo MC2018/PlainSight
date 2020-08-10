@@ -1,5 +1,7 @@
 package imageencryption;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author MC_2018 <mc2018.git@gmail.com>
@@ -8,11 +10,6 @@ public class MainDisplay extends javax.swing.JFrame {
 
     public MainDisplay() {
         initComponents();
-        String test = "testing";
-        test = Utils.encode(test);
-        System.out.println(test);
-        test = Utils.decode(test);
-        System.out.println(test);
     }
 
     /**

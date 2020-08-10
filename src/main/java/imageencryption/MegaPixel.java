@@ -6,4 +6,6 @@ package imageencryption;
  */
 public class MegaPixel {
     
+    
+    
 }

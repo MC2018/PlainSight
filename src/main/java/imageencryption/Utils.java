@@ -10,6 +10,7 @@ import java.util.Base64;
  */
 public class Utils {
     
+    final public static String BASE_64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     
     public static String encode(String text) {
         return Base64.getEncoder().encodeToString(text.getBytes());
@@ -34,6 +35,11 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    private int indexOfBase64(char character) {
+        return BASE_64_CHARACTERS.indexOf(character);
     }
     
 }

@@ -1,22 +1,18 @@
 package imageencryption;
 
-import java.awt.Image;
-import java.util.Random;
+import java.awt.image.BufferedImage;
 
 /**
  *
  * @author MC_2018 <mc2018.git@gmail.com>
  */
-public class ImageManipulator {
+public abstract class ImageManipulator {
     
-    private Image image;
-    private Random random;
-    private int multiplier;
-    
-    protected ImageManipulator(Image image, int multiplier) {
-        this.image = image;
-        random = new Random();
-        this.multiplier = multiplier;
-    }
+    protected MegaPixel[][] megaPixels;
+    protected BufferedImage image;
+    protected EnhancedRandom random;
+    protected int multiplier;
+    protected int width;
+    protected int height;
     
 }

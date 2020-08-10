@@ -9,17 +9,23 @@ import java.io.File;
  */
 public class Crypt {
     
+    /*
+    up to +- 3 for each RGB value; 4 * 4 * 4 -> 64, use base 64 index converter.
+    */
+    
     public static void encrypt(BufferedImage image, String text, String password) {
-        
+        encrypt(image, text, password, "output.txt");
     }
     
     private static void encrypt(BufferedImage image, String decodedText, String password, String fileName) {
         EnhancedRandom random = new EnhancedRandom(password);
-        ImageManipulator im;
+        ImageEncrypter ie;
         String encodedText = Utils.encode(fileName + "/" + decodedText);
-        //int multiplier;
+        int multiplier = calculateMultiplier(image, encodedText);
         
-        //multiplier = calculateMultiplier(image, text);
+        ie = new ImageEncrypter(image, random, multiplier);
+        
+        
     }
     
     public static void encrypt(BufferedImage image, File file, String password) {
@@ -35,7 +41,7 @@ public class Crypt {
         
     }
     
-    public static int calculateMultiplier(BufferedImage image, String encodedText) {
+    private static int calculateMultiplier(BufferedImage image, String encodedText) {
         int megaPixelCount = image.getWidth() * image.getHeight() - 1;
         int sparePixelsNeeded = encodedText.length() + 1;
         int multiplier = 2;
@@ -49,7 +55,7 @@ public class Crypt {
         return -1;
     }
     
-    public static int calculateMultiplier(BufferedImage image) {
+    private static int calculateMultiplier(BufferedImage image) {
         return -1;
     }
     
