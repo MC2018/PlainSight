@@ -24,8 +24,7 @@ public class Crypt {
         int multiplier = calculateMultiplier(image, encodedText);
         
         ie = new ImageEncrypter(image, random, multiplier);
-        
-        
+        ie.generateMegaPixels(encodedText);
     }
     
     public static void encrypt(BufferedImage image, File file, String password) {
