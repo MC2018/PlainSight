@@ -1,14 +1,20 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
+plugins {
+    id 'java'
+    id 'application'
+}
 
-
-mainClassName = 'imageencryption.MainDisplay'
+mainClassName = 'plainsight.MainDisplay'
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    testImplementation     'junit:junit:4.13'
+    
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'plainsight.MainDisplay'
+    }
 }
