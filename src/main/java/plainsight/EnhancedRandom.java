@@ -1,9 +1,6 @@
 package plainsight;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -42,19 +39,17 @@ public class EnhancedRandom {
         return randoms.get(index).nextInt(size);
     }
     
-    /*
-    AL                  30.949s
-    Arrays.asList       22.439s
-    Fisher-Yates        4.342s
-    Fisher-Yates Temp   3.438s
-    */
     protected int[] generateShuffledIntArray(int size, int exceptionIndex) {
         int[] array = new int[size];
         System.out.println(System.currentTimeMillis());
         
-        IntStream.range(0, size).parallel().forEach(i -> {
+        IntStream.range(0, size - 1).parallel().forEach(i -> {
             array[i] = i;
         });
+        
+        //for (int i = 0; i < size; i++) {
+        //    
+        //}
         
         if (exceptionIndex != size - 1) {
             array[exceptionIndex] = size - 1;
