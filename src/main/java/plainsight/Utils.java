@@ -1,8 +1,9 @@
-package imageencryption;
+package plainsight;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Base64;
+import org.xerial.snappy.Snappy;
 
 /**
  *
@@ -10,14 +11,25 @@ import java.util.Base64;
  */
 public class Utils {
     
-    final public static String BASE_64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    final public static char BASE_64_BREAK = '#';
+    final public static String BASE_64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" + BASE_64_BREAK;
+    final public static int MIN_OFFSET = 5;
+    final public static int MAX_OFFSET = 250;
     
     public static String encode(String text) {
-        return Base64.getEncoder().encodeToString(text.getBytes());
+        try {
+            return Base64.getEncoder().encodeToString(Snappy.compress(text.getBytes()));
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     public static String decode(String text) {
-        return new String(Base64.getDecoder().decode(text));
+        try {
+            return new String(Snappy.uncompress(Base64.getDecoder().decode(text)));
+        } catch (Exception e) {
+            return null;
+        }
     }
     
     public static String read(File file) {
@@ -37,8 +49,7 @@ public class Utils {
         }
     }
     
-    
-    private int indexOfBase64(char character) {
+    protected static int indexOfBase64(char character) {
         return BASE_64_CHARACTERS.indexOf(character);
     }
     

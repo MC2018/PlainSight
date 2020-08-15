@@ -1,8 +1,11 @@
-package imageencryption;
+package plainsight;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 /**
  *
@@ -19,29 +22,62 @@ public class EnhancedRandom {
         index = randoms.get(0).nextInt(randoms.size());
     }
     
-    public boolean nextBoolean() {
-        return randoms.get(index++).nextBoolean();
-    }
-    
-    public int nextInt(int size) {
-        return randoms.get(index++).nextInt(size);
-    }
-    
-    public ArrayList<Integer> generateShuffledIntArray(int size) {
-        ArrayList<Integer> list = new ArrayList();
-        
-        for (int i = 0; i < size; i++) {
-            list.add(i);
+    protected boolean nextBoolean() {
+        if (index + 1 < randoms.size()) {
+            index++;
+        } else {
+            index = 0;
         }
         
-        Collections.shuffle(list, randoms.get(0));
-        return list;
+        return randoms.get(index).nextBoolean();
     }
     
-    public char nextBase64Char(boolean finishingCharacter) {
-        if (finishingCharacter) {
-            
+    protected int nextInt(int size) {
+        if (index + 1 < randoms.size()) {
+            index++;
+        } else {
+            index = 0;
         }
+        
+        return randoms.get(index).nextInt(size);
+    }
+    
+    /*
+    AL                  30.949s
+    Arrays.asList       22.439s
+    Fisher-Yates        4.342s
+    Fisher-Yates Temp   3.438s
+    */
+    protected int[] generateShuffledIntArray(int size, int exceptionIndex) {
+        int[] array = new int[size];
+        System.out.println(System.currentTimeMillis());
+        
+        IntStream.range(0, size).parallel().forEach(i -> {
+            array[i] = i;
+        });
+        
+        if (exceptionIndex != size - 1) {
+            array[exceptionIndex] = size - 1;
+        }
+        
+        shuffleArray(array);
+        System.out.println(System.currentTimeMillis());
+        
+        return array;
+    }
+
+    private void shuffleArray(int[] array) {
+        int index, temp;
+        
+        for (int i = array.length - 1; i > 0; i--) {
+            index = nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+    }
+    
+    protected char nextBase64Char() {
         return Utils.BASE_64_CHARACTERS.charAt(nextInt(64));
     }
     

@@ -3,14 +3,14 @@ plugins {
     id 'application'
 }
 
-mainClassName = 'plainsight.MainDisplay'
+mainClassName = 'plainsight.Test'
 
 repositories {
     jcenter()
 }
 
 dependencies {
-    
+    implementation 'org.xerial.snappy:snappy-java:1.1.7.6'
 }
 
 jar {
