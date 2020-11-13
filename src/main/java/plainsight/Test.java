@@ -14,7 +14,7 @@ public class Test {
         try {
             BufferedImage image = ImageIO.read(new File("test.png"));
             try {
-                ImageIO.write(Crypt.encrypt(image, new File("test.png"), "password", false), "png", new File("finish.png"));
+                ImageIO.write(Crypt.encrypt(image, new File("test.png"), "password", false), "png", new File("test_pp.png"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -36,7 +36,7 @@ public class Test {
             }*/
             
             
-            /*int num = 262919;
+            int num = 262919;
             int a, r, g, b;
             System.out.println(a = (num & 255 * 256 * 256 * 256) >>> 24);
             System.out.println(r = (num & 255 * 256 * 256) >>> 16);
@@ -47,7 +47,7 @@ public class Test {
             int width = image.getWidth();
             int height = image.getHeight();
             int[] nums = image.getRGB(0, 0, width, height, null, 0, width);
-            System.out.println("");*/
+            System.out.println("");
         } catch (Exception e) {
             e.printStackTrace();
         }

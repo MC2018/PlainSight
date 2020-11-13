@@ -20,11 +20,11 @@ public class Crypt {
     
     private static BufferedImage encrypt(BufferedImage image, String decodedText, String password, String fileName, boolean randomizeAllMegaPixels) {
         EnhancedRandom random = new EnhancedRandom(password);
-        ImageEncrypter ie;
+        ImageEncryptor ie;
         String encodedText = Utils.encode(fileName + "/" + decodedText);
         int multiplier = calculateMultiplier(image, encodedText);
         
-        ie = new ImageEncrypter(image, random, multiplier, randomizeAllMegaPixels);
+        ie = new ImageEncryptor(image, random, multiplier, randomizeAllMegaPixels);
         image = null;
         ie.generateMegaPixels(encodedText);
         
@@ -36,8 +36,11 @@ public class Crypt {
         }
     }
     
+    /*
+    if difference is ever more than 5, kill the process
+    */
     public static void decrypt(BufferedImage image, String password) {
-        //ImageDecrypter id;
+        ImageDecryptor id;
         File output = new File("output/");
     }
     
@@ -54,7 +57,7 @@ public class Crypt {
         int sparePixelsNeeded = encodedText.length() + 2;
         int multiplier = 2;
         
-        while (multiplier <= 10) {
+        while (multiplier < Utils.MAX_SCALE) {
             if (megaPixelCount * (multiplier * multiplier - 1) >= sparePixelsNeeded) {
                 return multiplier;
             }

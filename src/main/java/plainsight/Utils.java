@@ -15,6 +15,7 @@ public class Utils {
     final public static String BASE_64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" + BASE_64_BREAK;
     final public static int MIN_OFFSET = 5;
     final public static int MAX_OFFSET = 250;
+    final public static int MAX_SCALE = 64;
     
     public static String encode(String text) {
         try {

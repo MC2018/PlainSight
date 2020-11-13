@@ -11,10 +11,12 @@ repositories {
 
 dependencies {
     implementation 'org.xerial.snappy:snappy-java:1.1.7.6'
+    implementation 'org.imgscalr:imgscalr-lib:4.2'
+
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'plainsight.MainDisplay'
+        attributes 'Main-Class': 'plainsight.Test'
     }
 }

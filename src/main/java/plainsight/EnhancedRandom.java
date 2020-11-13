@@ -53,7 +53,7 @@ public class EnhancedRandom {
         return array;
     }
 
-    private void shuffleArray(int[] array) {
+    public void shuffleArray(int[] array) {
         int index, temp;
         
         for (int i = array.length - 1; i > 0; i--) {

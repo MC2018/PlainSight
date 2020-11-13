@@ -1,14 +1,12 @@
 package plainsight;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  *
  * @author MC_2018 <mc2018.git@gmail.com>
  */
-public class ImageEncrypter {
+public class ImageEncryptor {
     
     private MegaPixel[] megaPixels;
     private EnhancedRandom random;
@@ -18,7 +16,7 @@ public class ImageEncrypter {
     private int height;
     private boolean randomizeAllMegaPixels;
     
-    protected ImageEncrypter(BufferedImage image, EnhancedRandom random, int multiplier, boolean randomizeAllMegaPixels) {
+    protected ImageEncryptor(BufferedImage image, EnhancedRandom random, int multiplier, boolean randomizeAllMegaPixels) {
         this.random = random;
         this.multiplier = multiplier;
         this.randomizeAllMegaPixels = randomizeAllMegaPixels;
@@ -65,7 +63,15 @@ public class ImageEncrypter {
     }
     
     private void setCornerMegaPixel(int coordinate) {
-        megaPixels[coordinate] = MegaPixel.generateCornerMegaPixel(multiplier, colors[coordinate], random);
+        int cornerIndex;
+        
+        if (coordinate < width) {
+            cornerIndex = coordinate == 0 ? 0 : 1;
+        } else {
+            cornerIndex = coordinate == width * height - 1 ? 2 : 3;
+        }
+        
+        megaPixels[coordinate] = MegaPixel.generateCornerMegaPixel(multiplier, colors[coordinate], random, cornerIndex);
     }
     
     private void setMegaPixel(int coordinate, String encodedText) {
